@@ -44,5 +44,34 @@ plt.close()
 
 </code></pre>
 
+<h2>Python Code Used for This Analysis</h2>
+
+<pre>
+import pandas as pd
+import matplotlib.pyplot as plt
+import io
+import base64
+
+data = """employee_id,department,region,performance_score,years_experience,satisfaction_rating
+EMP001,IT,Middle East,82.97,4,4.4
+EMP002,Operations,Middle East,76.95,6,3.2
+EMP003,R&D,Asia Pacific,60.88,10,4.8
+EMP004,IT,Middle East,73.7,7,4.3
+EMP005,Operations,Europe,79.75,4,4.1
+"""
+
+df = pd.read_csv(io.StringIO(data))
+finance_count = (df["department"] == "Finance").sum()
+print("Finance Department Count:", finance_count)
+
+plt.figure(figsize=(6, 4))
+df["department"].value_counts().plot(kind="bar")
+plt.title("Department Distribution")
+plt.xlabel("Department")
+plt.ylabel("Frequency")
+plt.show()
+</pre>
+
+  
 </body>
 </html>
