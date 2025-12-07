@@ -3,6 +3,11 @@ import matplotlib.pyplot as plt
 import io
 import base64
 
+# ================================
+# EMAIL FOR VERIFICATION
+# 23f2004056@ds.study.iitm.ac.in
+# ================================
+
 # -------------------------------
 # Load the employee dataset
 # -------------------------------
@@ -25,44 +30,43 @@ print("Finance Department Count:", finance_count)
 # -----------------------------------
 # Create histogram of departments
 # -----------------------------------
-plt.figure(figsize=(8, 5))
+plt.figure(figsize=(6, 4))
 df["department"].value_counts().plot(kind="bar")
 plt.title("Department Distribution")
 plt.xlabel("Department")
 plt.ylabel("Frequency")
 
-# Save the plot into a buffer
+# Save the plot to memory
 buf = io.BytesIO()
 plt.savefig(buf, format="png")
 buf.seek(0)
-encoded_image = base64.b64encode(buf.read()).decode("utf-8")
+encoded_img = base64.b64encode(buf.read()).decode("utf-8")
 plt.close()
 
 # -----------------------------------
-# Generate HTML report
+# Generate HTML file
 # -----------------------------------
-html = f"""
+html_content = f"""
 <html>
 <head>
-<title>Employee Performance Report</title>
+<title>Employee Performance Analysis</title>
 </head>
 <body>
-<h1>Employee Visualization Report</h1>
 
-<p><b>Email (required for verification):</b> 23f2004056@ds.study.iitm.ac.in</p>
+<h1>Employee Department Analysis</h1>
+<p><b>Email:</b> 23f2004056@ds.study.iitm.ac.in</p>
 
-<h2>Finance Department Frequency Count</h2>
+<h2>Finance Department Frequency</h2>
 <p>{finance_count}</p>
 
-<h2>Department Histogram</h2>
-<img src="data:image/png;base64,{encoded_image}" />
+<h2>Department Distribution Histogram</h2>
+<img src="data:image/png;base64,{encoded_img}" />
 
 </body>
 </html>
 """
 
-# Save to HTML file
 with open("employee_report.html", "w") as f:
-    f.write(html)
+    f.write(html_content)
 
-print("HTML file generated: employee_report.html")
+print("employee_report.html successfully created!")
